@@ -17,7 +17,7 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
     try {
         const { email } = req.params;
 
-        const user = await User.findOne({ email }).populate('posts');
+        const user = await User.findOne({ email }).populate('posts', '-__v -createdAt');
 
         return success(req, res, 'User get success', user);
 
