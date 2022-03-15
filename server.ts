@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSetup from './src/interfaces/shared/swagger/swagger';
 import IndexRoutes from './src/features/routes/indexRoutes';
 import connection from './src/core/connection';
 
@@ -22,6 +24,7 @@ class Server {
     }
 
     config() {
+        this.app.use("/documentation",swaggerUi.serve, swaggerUi.setup(swaggerSetup))
         new connection();
     }
 

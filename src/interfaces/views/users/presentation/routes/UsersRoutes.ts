@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { check } from 'express-validator';
 import { validateFields } from '../../../../shared/express-validator/validate_fields';
 import { getUsers, getUser, addUser, updateUser, deleteUser }
@@ -29,5 +29,34 @@ router.delete('/:email', [
     check("email", 'El email es obligatorio').not().isEmpty(),
     validateFields
 ], deleteUser);
+
+/**
+ * Post track
+ * @openapi
+ * /users:
+ *    post:
+ *      tags:
+ *        - users
+ *      summary: "Listar usuario"
+ *      description: Este endpoint es para listar los usuario totales
+ *      requestBody:
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: "#/components/schemas/user"
+ *      responses:
+ *        '200':
+ *          description: Retorna el objeto insertado en la coleccion.
+ *        '422':
+ *          description: Error de validacion.
+ *      security:
+ *       - ffofofof: []
+ */
+ router.post("/users", (req: Request, res: Response) => {
+    const { body } = req;
+    console.log(body)
+    res.send({ data: body });
+  });
+
 
 export default router;
